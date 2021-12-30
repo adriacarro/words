@@ -1,17 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <WordInput @add="add" :words="words.length"/>
+    <WordsList :words="words"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import WordInput from './components/WordInput.vue'
+import WordsList from './components/WordsList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    WordInput,
+    WordsList
+  },
+  data() {
+    return {
+      added: false,
+      words: []
+    }
+  },
+  methods: {
+    add(word) {
+      word = word.toLowerCase()
+      if (word.length > 0 && this.words.indexOf(word) == -1) {
+        this.words.push(word)
+        this.words = this.words.sort()
+      }
+    }
   }
 }
 </script>
